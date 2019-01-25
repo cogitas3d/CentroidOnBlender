@@ -1,3 +1,15 @@
+bl_info = {
+    "name": "CentroidOnBlender",
+    "author": "Cicero Moraes",
+    "version": (1, 1, 11),
+    "blender": (2, 75, 0),
+    "location": "View3D",
+    "description": "Planejamento de Cirurgia Ortognática no Blender",
+    "warning": "",
+    "wiki_url": "",
+    "category": "Mesh",
+    }
+
 import bpy
 import bmesh
 import fnmatch
