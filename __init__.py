@@ -13,6 +13,9 @@ bl_info = {
 import bpy
 import bmesh
 import fnmatch
+import csv
+import tempfile
+import subprocess
 from mathutils import Matrix,Vector
 from bpy_extras.object_utils import AddObjectHelper, object_data_add
 
@@ -392,6 +395,31 @@ class AdicionaManPMEreal(Operator, AddObjectHelper):
 
         AdicionaEMPTYDef("Man-PME-real")
         return {'FINISHED'}
+
+def GeraCSVDef():
+
+    tmpdir = tempfile.mkdtemp()    
+
+    ManICdigi = bpy.data.objects["Man-IC-digi"]    
+
+    with open(tmpdir+'/centroid_file.csv', mode='w') as centroid_file:
+        centroid_writer = csv.writer(centroid_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+        centroid_writer.writerow(['', 'Teste', ''])
+        centroid_writer.writerow(['Teste', '', 'Teste'])
+        centroid_writer.writerow(['MAN-IC-DIGI', str(ManICdigi.location[0]), str(ManICdigi.location[1]), str(ManICdigi.location[2]), 'rotX', 'rotY', 'royZ'])
+
+        subprocess.Popen("libreoffice "+tmpdir+"/centroid_file.csv", shell=True)
+
+class GeraCSV(Operator, AddObjectHelper):
+    """Create a new Mesh Object"""
+    bl_idname = "object.gera_csv"
+    bl_label = "Add Centroide"
+    bl_options = {'REGISTER', 'UNDO'}
+
+    def execute(self, context):
+        GeraCSVDef()
+        return {'FINISHED'}
     
 class BotoesCentroideDigi(bpy.types.Panel):
     """Planejamento de cirurgia ortognática no Blender"""
@@ -494,7 +522,25 @@ class BotoesCentroideReal(bpy.types.Panel):
         
         row = layout.row()
         row.operator("mesh.add_tri_centroide_man_real", text="Centróide Mandíbula Real", icon="MOD_DISPLACE")
-                
+
+class BotoesTabela(bpy.types.Panel):
+    """Planejamento de cirurgia ortognática no Blender"""
+    bl_label = "TABELA"
+    bl_idname = "xxxx.aaaaa"
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'TOOLS'
+    bl_category = "Centroide"
+
+    def draw(self, context):
+        layout = self.layout
+
+        obj = context.object
+
+#        row = layout.row()
+#        row.label(text="MAXILA REAL")
+
+        row = layout.row()
+        row.operator("object.gera_csv", text="Gera Tabela!", icon="LINENUMBERS_OFF")                
     
 def register():
     bpy.utils.register_class(AdicionaManICdigi)
@@ -515,6 +561,8 @@ def register():
     bpy.utils.register_class(AdicionaMaxICreal)        
     bpy.utils.register_class(AdicionaMaxPMDreal)
     bpy.utils.register_class(AdicionaMaxPMEreal)
+    bpy.utils.register_class(GeraCSV)
+    bpy.utils.register_class(BotoesTabela)
     
 def unregister():
     bpy.utils.unregister_class(AdicionaManICdigi)
@@ -535,6 +583,8 @@ def unregister():
     bpy.utils.unregister_class(AdicionaMaxICreal)        
     bpy.utils.unregister_class(AdicionaMaxPMDreal)
     bpy.utils.unregister_class(AdicionaMaxPMEreal)
+    bpy.utils.unregister_class(GeraCSV)
+    bpy.utils.unregister_class(BotoesTabela)
 
 if __name__ == "__main__":
     register()
