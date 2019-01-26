@@ -481,8 +481,8 @@ def GeraCSVDef():
         centroid_writer.writerow(['Man-PME-Real', str(ManPMEreal.location[0]), str(ManPMEreal.location[1]), str(ManPMEreal.location[2]) ])
 
         centroid_writer.writerow([''])
-        centroid_writer.writerow(['TABELA 02 - CENTRÓIDES'])
-        centroid_writer.writerow(['ID', 'LocX', 'LocY', 'LocZ', 'RotX', 'RotY', 'RotZ'])
+        centroid_writer.writerow(['TABELA 02 - CENTRÓIDES', 'Atencão eixos Rot!'])
+        centroid_writer.writerow(['ID', 'LocX', 'LocY', 'LocZ', 'RotZ', 'RotY', 'RotX'])
         centroid_writer.writerow(['CentroideMaxilaDigi', str(CentroideMaxilaDigi.location[0]), str(CentroideMaxilaDigi.location[1]), str(CentroideMaxilaDigi.location[2]), str(math.degrees(CentroideMaxilaDigi.rotation_euler[0])), str(math.degrees(CentroideMaxilaDigi.rotation_euler[1])), str(math.degrees(CentroideMaxilaDigi.rotation_euler[2])) ])
 
         centroid_writer.writerow(['CentroideMaxilaReal', str(CentroideMaxilaReal.location[0]), str(CentroideMaxilaReal.location[1]), str(CentroideMaxilaReal.location[2]), str(math.degrees(CentroideMaxilaReal.rotation_euler[0])), str(math.degrees(CentroideMaxilaReal.rotation_euler[1])), str(math.degrees(CentroideMaxilaReal.rotation_euler[2])) ])        
@@ -507,8 +507,8 @@ def GeraCSVDef():
         centroid_writer.writerow(['Centroide-ManDigi-ManReal', str(DistCentrManDigiReal) ])
 
         centroid_writer.writerow([''])
-        centroid_writer.writerow(['TABELA 04 - DIFERENCAS'])
-        centroid_writer.writerow(['ID', 'RotX', 'RotY', 'RotZ'])
+        centroid_writer.writerow(['TABELA 04 - DIFERENCAS', 'Atencão eixos Rot!'])
+        centroid_writer.writerow(['ID', 'RotZ', 'RotY', 'RotX'])
 
         centroid_writer.writerow(['Centroide-MaxDigi-MaxReal', str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[0]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[0]))), str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[1]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[1]))), str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[2]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[2]))) ])
         centroid_writer.writerow(['Centroide-ManDigi-ManReal', str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[0]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[0]))), str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[1]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[1]))), str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[2]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[2]))) ])
