@@ -525,10 +525,10 @@ class GeraCSV(Operator, AddObjectHelper):
         GeraCSVDef()
         return {'FINISHED'}
     
-class BotoesCentroideDigi(bpy.types.Panel):
+class BotoesMaxDigi(bpy.types.Panel):
     """Planejamento de cirurgia ortognática no Blender"""
-    bl_label = "PÓS-DIGITAL"
-    bl_idname = "xxxx.aaa"
+    bl_label = "MAXILA DIGITAL"
+    bl_idname = "max.digi"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'TOOLS'
     bl_category = "Centroide"
@@ -537,12 +537,7 @@ class BotoesCentroideDigi(bpy.types.Panel):
         layout = self.layout
 
         obj = context.object
-
-        # Maxila Digital
-        
-        row = layout.row()
-        row.label(text="MAXILA DIGITAL")
-        
+       
         row = layout.row()
         row.operator("mesh.add_max_ic_digi", text="Max-IC-digi", icon="OUTLINER_DATA_EMPTY")
         
@@ -559,8 +554,47 @@ class BotoesCentroideDigi(bpy.types.Panel):
 
         row = layout.row()
 
-        # Mandíbula Digital
+
+class BotoesMaxReal(bpy.types.Panel):
+    """Planejamento de cirurgia ortognática no Blender"""
+    bl_label = "MAXILA REAL"
+    bl_idname = "max.real"
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'TOOLS'
+    bl_category = "Centroide"
+
+    def draw(self, context):
+        layout = self.layout
+
+        obj = context.object
+
+        row = layout.row()
+        row.operator("mesh.add_max_ic_real", text="Max-IC-real", icon="OUTLINER_DATA_EMPTY")
         
+        row = layout.row()
+        row.operator("mesh.add_max_pmd_real", text="Max-PMD-real", icon="OUTLINER_DATA_EMPTY")
+
+        row = layout.row()
+        row.operator("mesh.add_max_pme_real", text="Max-PME-real", icon="OUTLINER_DATA_EMPTY")
+
+        row = layout.row()
+        
+        row = layout.row()
+        row.operator("mesh.add_tri_centroide_max_real", text="Centróide Maxila Real", icon="MOD_DISPLACE")
+        
+class BotoesManDigi(bpy.types.Panel):
+    """Planejamento de cirurgia ortognática no Blender"""
+    bl_label = "MAXILA REAL"
+    bl_idname = "man.digi"
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'TOOLS'
+    bl_category = "Centroide"
+
+    def draw(self, context):
+        layout = self.layout
+
+        obj = context.object
+         
         row = layout.row()
         row.label(text="MANDÍBULA DIGITAL")
         
@@ -579,11 +613,10 @@ class BotoesCentroideDigi(bpy.types.Panel):
         row.operator("mesh.add_tri_centroide_man_digi", text="Centróide Mandíbula Digi", icon="MOD_DISPLACE")
 
 
-        
-class BotoesCentroideReal(bpy.types.Panel):
+class BotoesManReal(bpy.types.Panel):
     """Planejamento de cirurgia ortognática no Blender"""
-    bl_label = "PÓS-REAL"
-    bl_idname = "xxxx.aa"
+    bl_label = "MANDÍBULA REAL"
+    bl_idname = "man.real"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'TOOLS'
     bl_category = "Centroide"
@@ -592,27 +625,7 @@ class BotoesCentroideReal(bpy.types.Panel):
         layout = self.layout
 
         obj = context.object
-
-        row = layout.row()
-        row.label(text="MAXILA REAL")
-        
-        row = layout.row()
-        row.operator("mesh.add_max_ic_real", text="Max-IC-real", icon="OUTLINER_DATA_EMPTY")
-        
-        row = layout.row()
-        row.operator("mesh.add_max_pmd_real", text="Max-PMD-real", icon="OUTLINER_DATA_EMPTY")
-
-        row = layout.row()
-        row.operator("mesh.add_max_pme_real", text="Max-PME-real", icon="OUTLINER_DATA_EMPTY")
-
-        row = layout.row()
-        
-        row = layout.row()
-        row.operator("mesh.add_tri_centroide_max_real", text="Centróide Maxila Real", icon="MOD_DISPLACE")
-
-        row = layout.row()
-        row.label(text="MANDÍBULA REAL")
-        
+     
         row = layout.row()
         row.operator("mesh.add_man_ic_real", text="Man-IC-real", icon="OUTLINER_DATA_EMPTY")
         
@@ -648,7 +661,6 @@ class BotoesTabela(bpy.types.Panel):
     
 def register():
     bpy.utils.register_class(AdicionaManICdigi)
-    bpy.utils.register_class(BotoesCentroideDigi)
     bpy.utils.register_class(CriaTriCentroideManDigi)
     bpy.utils.register_class(AdicionaManPMDdigi)
     bpy.utils.register_class(AdicionaManPMEdigi)
@@ -656,7 +668,6 @@ def register():
     bpy.utils.register_class(AdicionaMaxICdigi)        
     bpy.utils.register_class(AdicionaMaxPMDdigi)
     bpy.utils.register_class(AdicionaMaxPMEdigi)
-    bpy.utils.register_class(BotoesCentroideReal)
     bpy.utils.register_class(CriaTriCentroideManReal)
     bpy.utils.register_class(AdicionaManICreal)        
     bpy.utils.register_class(AdicionaManPMDreal)
@@ -666,11 +677,14 @@ def register():
     bpy.utils.register_class(AdicionaMaxPMDreal)
     bpy.utils.register_class(AdicionaMaxPMEreal)
     bpy.utils.register_class(GeraCSV)
+    bpy.utils.register_class(BotoesMaxDigi)
+    bpy.utils.register_class(BotoesMaxReal)
+    bpy.utils.register_class(BotoesManDigi)
+    bpy.utils.register_class(BotoesManReal)
     bpy.utils.register_class(BotoesTabela)
     
 def unregister():
     bpy.utils.unregister_class(AdicionaManICdigi)
-    bpy.utils.unregister_class(BotoesCentroideDigi)
     bpy.utils.unregister_class(CriaTriCentroideManDigi)
     bpy.utils.unregister_class(AdicionaManPMDdigi)
     bpy.utils.unregister_class(AdicionaManPMEdigi)
@@ -678,7 +692,6 @@ def unregister():
     bpy.utils.unregister_class(AdicionaMaxICdigi)        
     bpy.utils.unregister_class(AdicionaMaxPMDdigi)
     bpy.utils.unregister_class(AdicionaMaxPMEdigi)
-    bpy.utils.unregister_class(BotoesCentroideReal)
     bpy.utils.unregister_class(CriaTriCentroideManReal)
     bpy.utils.unregister_class(AdicionaManICreal)        
     bpy.utils.unregister_class(AdicionaManPMDreal)
@@ -688,6 +701,10 @@ def unregister():
     bpy.utils.unregister_class(AdicionaMaxPMDreal)
     bpy.utils.unregister_class(AdicionaMaxPMEreal)
     bpy.utils.unregister_class(GeraCSV)
+    bpy.utils.unregister_class(BotoesMaxDigi)
+    bpy.utils.unregister_class(BotoesMaxReal)
+    bpy.utils.unregister_class(BotoesManDigi)
+    bpy.utils.unregister_class(BotoesManReal)
     bpy.utils.unregister_class(BotoesTabela)
 
 if __name__ == "__main__":
