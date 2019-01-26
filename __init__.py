@@ -594,10 +594,7 @@ class BotoesManDigi(bpy.types.Panel):
         layout = self.layout
 
         obj = context.object
-         
-        row = layout.row()
-        row.label(text="MANDÍBULA DIGITAL")
-        
+       
         row = layout.row()
         row.operator("mesh.add_man_ic_digi", text="Man-IC-digi", icon="OUTLINER_DATA_EMPTY")
         
