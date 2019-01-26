@@ -584,7 +584,7 @@ class BotoesMaxReal(bpy.types.Panel):
         
 class BotoesManDigi(bpy.types.Panel):
     """Planejamento de cirurgia ortognática no Blender"""
-    bl_label = "MAXILA REAL"
+    bl_label = "MANDÍBULA DIGITAL"
     bl_idname = "man.digi"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'TOOLS'
