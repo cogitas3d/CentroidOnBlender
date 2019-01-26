@@ -416,10 +416,32 @@ def GeraCSVDef():
     tmpdir = tempfile.mkdtemp()    
 
     MaxICdigi = bpy.data.objects["Max-IC-digi"]
+    MaxICreal = bpy.data.objects["Max-IC-real"]
+    MaxPMDdigi = bpy.data.objects["Max-PMD-digi"]
+    MaxPMDreal = bpy.data.objects["Max-PMD-real"]
+    MaxPMEdigi = bpy.data.objects["Max-PME-digi"]
+    MaxPMEreal = bpy.data.objects["Max-PME-real"]
     CentroideMaxilaDigi = bpy.data.objects["CentroideMaxilaDigi"] 
     CentroideMaxilaReal = bpy.data.objects["CentroideMaxilaReal"]
 
-    DistMaxDigiReal = DistanciaLinear("CentroideMaxilaDigi", "CentroideMaxilaReal")       
+    DistMaxICDigiReal = DistanciaLinear("Max-IC-digi", "Max-IC-real")
+    DistMaxPMDDigiReal = DistanciaLinear("Max-PMD-digi", "Max-PMD-real")
+    DistMaxPMEDigiReal = DistanciaLinear("Max-PME-digi", "Max-PME-real")
+    DistCentrMaxDigiReal = DistanciaLinear("CentroideMaxilaDigi", "CentroideMaxilaReal")
+
+    ManICdigi = bpy.data.objects["Man-IC-digi"]
+    ManICreal = bpy.data.objects["Man-IC-real"]
+    ManPMDdigi = bpy.data.objects["Man-PMD-digi"]
+    ManPMDreal = bpy.data.objects["Man-PMD-real"]
+    ManPMEdigi = bpy.data.objects["Man-PME-digi"]
+    ManPMEreal = bpy.data.objects["Man-PME-real"]
+    CentroideMandibulaDigi = bpy.data.objects["CentroideMandibulaDigi"] 
+    CentroideMandibulaReal = bpy.data.objects["CentroideMandibulaReal"]
+
+    DistManICDigiReal = DistanciaLinear("Man-IC-digi", "Man-IC-real")
+    DistManPMDDigiReal = DistanciaLinear("Man-PMD-digi", "Man-PMD-real")
+    DistManPMEDigiReal = DistanciaLinear("Man-PME-digi", "Man-PME-real")
+    DistCentrManDigiReal = DistanciaLinear("CentroideMandibulaDigi", "CentroideMandibulaReal")      
 
     bpy.ops.object.select_all(action='DESELECT')    
 
@@ -432,27 +454,64 @@ def GeraCSVDef():
     bpy.data.objects["CentroideMaxilaReal"].rotation_mode='AXIS_ANGLE'
     bpy.data.objects["CentroideMaxilaReal"].rotation_mode='ZYX'
 
+    bpy.data.objects["CentroideMandibulaDigi"].rotation_mode='AXIS_ANGLE'
+    bpy.data.objects["CentroideMandibulaDigi"].rotation_mode='ZYX'
+    bpy.data.objects["CentroideMandibulaReal"].rotation_mode='AXIS_ANGLE'
+    bpy.data.objects["CentroideMandibulaReal"].rotation_mode='ZYX'
+
 
     with open(tmpdir+'/centroid_file.csv', mode='w') as centroid_file:
         centroid_writer = csv.writer(centroid_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-        centroid_writer.writerow(['TABELA 01 - POSIÇÃO E ROTAÇÃO'])
-        centroid_writer.writerow(['ID', 'LocX', 'LocY', 'LocZ', 'RotX', 'RotY', 'RotZ'])
+        centroid_writer.writerow(['TABELA 01 - PONTOS ANATÔMICOS'])
+        centroid_writer.writerow(['ID', 'LocX', 'LocY', 'LocZ'])
 
         centroid_writer.writerow(['Max-IC-Digi', str(MaxICdigi.location[0]), str(MaxICdigi.location[1]), str(MaxICdigi.location[2]) ])
+        centroid_writer.writerow(['Max-IC-Real', str(MaxICreal.location[0]), str(MaxICreal.location[1]), str(MaxICreal.location[2]) ])
+        centroid_writer.writerow(['Max-PMD-Digi', str(MaxPMDdigi.location[0]), str(MaxPMDdigi.location[1]), str(MaxPMDdigi.location[2]) ])
+        centroid_writer.writerow(['Max-PMD-Real', str(MaxPMDreal.location[0]), str(MaxPMDreal.location[1]), str(MaxPMDreal.location[2]) ])
+        centroid_writer.writerow(['Max-PME-Digi', str(MaxPMEdigi.location[0]), str(MaxPMEdigi.location[1]), str(MaxPMEdigi.location[2]) ])
+        centroid_writer.writerow(['Max-PME-Real', str(MaxPMEreal.location[0]), str(MaxPMEreal.location[1]), str(MaxPMEreal.location[2]) ])
+        centroid_writer.writerow([''])
+        centroid_writer.writerow(['Man-IC-Digi', str(ManICdigi.location[0]), str(ManICdigi.location[1]), str(ManICdigi.location[2]) ])
+        centroid_writer.writerow(['Man-IC-Real', str(ManICreal.location[0]), str(ManICreal.location[1]), str(ManICreal.location[2]) ])
+        centroid_writer.writerow(['Man-PMD-Digi', str(ManPMDdigi.location[0]), str(ManPMDdigi.location[1]), str(ManPMDdigi.location[2]) ])
+        centroid_writer.writerow(['Man-PMD-Real', str(ManPMDreal.location[0]), str(ManPMDreal.location[1]), str(ManPMDreal.location[2]) ])
+        centroid_writer.writerow(['Man-PME-Digi', str(ManPMEdigi.location[0]), str(ManPMEdigi.location[1]), str(ManPMEdigi.location[2]) ])
+        centroid_writer.writerow(['Man-PME-Real', str(ManPMEreal.location[0]), str(ManPMEreal.location[1]), str(ManPMEreal.location[2]) ])
 
+        centroid_writer.writerow([''])
+        centroid_writer.writerow(['TABELA 02 - CENTRÓIDES'])
+        centroid_writer.writerow(['ID', 'LocX', 'LocY', 'LocZ', 'RotX', 'RotY', 'RotZ'])
         centroid_writer.writerow(['CentroideMaxilaDigi', str(CentroideMaxilaDigi.location[0]), str(CentroideMaxilaDigi.location[1]), str(CentroideMaxilaDigi.location[2]), str(math.degrees(CentroideMaxilaDigi.rotation_euler[0])), str(math.degrees(CentroideMaxilaDigi.rotation_euler[1])), str(math.degrees(CentroideMaxilaDigi.rotation_euler[2])) ])
 
         centroid_writer.writerow(['CentroideMaxilaReal', str(CentroideMaxilaReal.location[0]), str(CentroideMaxilaReal.location[1]), str(CentroideMaxilaReal.location[2]), str(math.degrees(CentroideMaxilaReal.rotation_euler[0])), str(math.degrees(CentroideMaxilaReal.rotation_euler[1])), str(math.degrees(CentroideMaxilaReal.rotation_euler[2])) ])        
 
         centroid_writer.writerow([''])
-        centroid_writer.writerow(['TABELA 02 - DISTÂNCIAS'])
-        centroid_writer.writerow(['MaxDigi-MaxReal', str(DistMaxDigiReal) ])
+
+        centroid_writer.writerow(['CentroideMandibulaDigi', str(CentroideMandibulaDigi.location[0]), str(CentroideMandibulaDigi.location[1]), str(CentroideMandibulaDigi.location[2]), str(math.degrees(CentroideMandibulaDigi.rotation_euler[0])), str(math.degrees(CentroideMandibulaDigi.rotation_euler[1])), str(math.degrees(CentroideMandibulaDigi.rotation_euler[2])) ])
+
+        centroid_writer.writerow(['CentroideMandibulaReal', str(CentroideMandibulaReal.location[0]), str(CentroideMandibulaReal.location[1]), str(CentroideMandibulaReal.location[2]), str(math.degrees(CentroideMandibulaReal.rotation_euler[0])), str(math.degrees(CentroideMandibulaReal.rotation_euler[1])), str(math.degrees(CentroideMandibulaReal.rotation_euler[2])) ])
 
         centroid_writer.writerow([''])
-        centroid_writer.writerow(['TABELA 03 - DIFERENCAS', 'RotX', 'RotY', 'RotZ'])
+        centroid_writer.writerow(['TABELA 03 - DISTÂNCIAS'])
+        centroid_writer.writerow(['IC-MaxDigi-MaxReal', str(DistMaxICDigiReal) ])
+        centroid_writer.writerow(['PMD-MaxDigi-MaxReal', str(DistMaxPMDDigiReal) ])
+        centroid_writer.writerow(['PME-MaxDigi-MaxReal', str(DistMaxPMEDigiReal) ])
+        centroid_writer.writerow([''])
+        centroid_writer.writerow(['IC-ManDigi-ManReal', str(DistManICDigiReal) ])
+        centroid_writer.writerow(['PMD-ManDigi-ManReal', str(DistManPMDDigiReal) ])
+        centroid_writer.writerow(['PME-ManDigi-ManReal', str(DistManPMEDigiReal) ])
+        centroid_writer.writerow([''])
+        centroid_writer.writerow(['Centroide-MaxDigi-MaxReal', str(DistCentrMaxDigiReal) ])
+        centroid_writer.writerow(['Centroide-ManDigi-ManReal', str(DistCentrManDigiReal) ])
 
-        centroid_writer.writerow(['MaxDigi-MaxReal', str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[0]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[0]))), str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[1]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[1]))), str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[2]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[2]))) ])
+        centroid_writer.writerow([''])
+        centroid_writer.writerow(['TABELA 04 - DIFERENCAS'])
+        centroid_writer.writerow(['ID', 'RotX', 'RotY', 'RotZ'])
+
+        centroid_writer.writerow(['Centroide-MaxDigi-MaxReal', str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[0]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[0]))), str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[1]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[1]))), str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[2]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[2]))) ])
+        centroid_writer.writerow(['Centroide-ManDigi-ManReal', str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[0]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[0]))), str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[1]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[1]))), str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[2]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[2]))) ])
 
         subprocess.Popen("libreoffice "+tmpdir+"/centroid_file.csv", shell=True)
 
