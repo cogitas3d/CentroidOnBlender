@@ -16,6 +16,8 @@ import fnmatch
 import csv
 import tempfile
 import subprocess
+import math
+from math import sqrt
 from mathutils import Matrix,Vector
 from bpy_extras.object_utils import AddObjectHelper, object_data_add
 
@@ -396,18 +398,61 @@ class AdicionaManPMEreal(Operator, AddObjectHelper):
         AdicionaEMPTYDef("Man-PME-real")
         return {'FINISHED'}
 
+def DistanciaLinear(Objeto1, Objeto2):
+
+    l = []
+    Objetos = [bpy.data.objects[Objeto1], bpy.data.objects[Objeto2]]
+    
+    for item in Objetos:
+       l.append(item.location)
+
+    distanciaLinear = sqrt( (l[0][0] - l[1][0])**2 + (l[0][1] - l[1][1])**2 + (l[0][2] - l[1][2])**2)
+    
+    return distanciaLinear
+
+
 def GeraCSVDef():
 
     tmpdir = tempfile.mkdtemp()    
 
-    ManICdigi = bpy.data.objects["Man-IC-digi"]    
+    MaxICdigi = bpy.data.objects["Max-IC-digi"]
+    CentroideMaxilaDigi = bpy.data.objects["CentroideMaxilaDigi"] 
+    CentroideMaxilaReal = bpy.data.objects["CentroideMaxilaReal"]
+
+    DistMaxDigiReal = DistanciaLinear("CentroideMaxilaDigi", "CentroideMaxilaReal")       
+
+    bpy.ops.object.select_all(action='DESELECT')    
+
+   
+    #Ajusta a rotação -- não é necessário selecionar!
+
+
+    bpy.data.objects["CentroideMaxilaDigi"].rotation_mode='AXIS_ANGLE'
+    bpy.data.objects["CentroideMaxilaDigi"].rotation_mode='ZYX'
+    bpy.data.objects["CentroideMaxilaReal"].rotation_mode='AXIS_ANGLE'
+    bpy.data.objects["CentroideMaxilaReal"].rotation_mode='ZYX'
+
 
     with open(tmpdir+'/centroid_file.csv', mode='w') as centroid_file:
         centroid_writer = csv.writer(centroid_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-        centroid_writer.writerow(['', 'Teste', ''])
-        centroid_writer.writerow(['Teste', '', 'Teste'])
-        centroid_writer.writerow(['MAN-IC-DIGI', str(ManICdigi.location[0]), str(ManICdigi.location[1]), str(ManICdigi.location[2]), 'rotX', 'rotY', 'royZ'])
+        centroid_writer.writerow(['TABELA 01 - POSIÇÃO E ROTAÇÃO'])
+        centroid_writer.writerow(['ID', 'LocX', 'LocY', 'LocZ', 'RotX', 'RotY', 'RotZ'])
+
+        centroid_writer.writerow(['Max-IC-Digi', str(MaxICdigi.location[0]), str(MaxICdigi.location[1]), str(MaxICdigi.location[2]) ])
+
+        centroid_writer.writerow(['CentroideMaxilaDigi', str(CentroideMaxilaDigi.location[0]), str(CentroideMaxilaDigi.location[1]), str(CentroideMaxilaDigi.location[2]), str(math.degrees(CentroideMaxilaDigi.rotation_euler[0])), str(math.degrees(CentroideMaxilaDigi.rotation_euler[1])), str(math.degrees(CentroideMaxilaDigi.rotation_euler[2])) ])
+
+        centroid_writer.writerow(['CentroideMaxilaReal', str(CentroideMaxilaReal.location[0]), str(CentroideMaxilaReal.location[1]), str(CentroideMaxilaReal.location[2]), str(math.degrees(CentroideMaxilaReal.rotation_euler[0])), str(math.degrees(CentroideMaxilaReal.rotation_euler[1])), str(math.degrees(CentroideMaxilaReal.rotation_euler[2])) ])        
+
+        centroid_writer.writerow([''])
+        centroid_writer.writerow(['TABELA 02 - DISTÂNCIAS'])
+        centroid_writer.writerow(['MaxDigi-MaxReal', str(DistMaxDigiReal) ])
+
+        centroid_writer.writerow([''])
+        centroid_writer.writerow(['TABELA 03 - DIFERENCAS', 'RotX', 'RotY', 'RotZ'])
+
+        centroid_writer.writerow(['MaxDigi-MaxReal', str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[0]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[0]))), str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[1]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[1]))), str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[2]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[2]))) ])
 
         subprocess.Popen("libreoffice "+tmpdir+"/centroid_file.csv", shell=True)
 
