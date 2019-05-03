@@ -127,8 +127,18 @@ class CriaTriCentroideMaxDigi(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
-    def execute(self, context):
+    @classmethod
+    def poll(cls, context):
 
+        found = 'CENTR_MAX_TRI_DIGI' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
+    def execute(self, context):
         CriaTriCentroideDef(self, "Max-IC-digi","Max-PMD-digi", "Max-PME-digi", "CENTR_MAX_TRI_DIGI", "CentroideMaxilaDigi")
 
         return {'FINISHED'}
@@ -140,15 +150,18 @@ class AdicionaMaxICdigi(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Max-IC-digi' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Max-IC-dig*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Max-IC-digi")
         return {'FINISHED'}
     
@@ -158,15 +171,18 @@ class AdicionaMaxPMDdigi(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Max-PMD-digi' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Max-PMD-dig*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Max-PMD-digi")
         return {'FINISHED'}
     
@@ -176,15 +192,18 @@ class AdicionaMaxPMEdigi(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Max-PME-digi' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Max-PME-dig*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Max-PME-digi")
         return {'FINISHED'}    
 
@@ -197,8 +216,18 @@ class CriaTriCentroideManDigi(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
-    def execute(self, context):
+    @classmethod
+    def poll(cls, context):
 
+        found = 'CENTR_MAND_TRI_DIGI' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
+    def execute(self, context):
         CriaTriCentroideDef(self, "Man-IC-digi","Man-PMD-digi", "Man-PME-digi", "CENTR_MAND_TRI_DIGI", "CentroideMandibulaDigi")
 
         return {'FINISHED'}
@@ -210,15 +239,18 @@ class AdicionaManICdigi(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Man-IC-digi' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Man-IC-dig*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Man-IC-digi")
         return {'FINISHED'}
     
@@ -228,15 +260,18 @@ class AdicionaManPMDdigi(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Man-PMD-digi' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Man-PMD-dig*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Man-PMD-digi")
         return {'FINISHED'}
     
@@ -246,15 +281,18 @@ class AdicionaManPMEdigi(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Man-PME-digi' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Man-PME-dig*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Man-PME-digi")
         return {'FINISHED'}
 
@@ -268,8 +306,18 @@ class CriaTriCentroideMaxReal(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
-    def execute(self, context):
+    @classmethod
+    def poll(cls, context):
 
+        found = 'CENTR_MAX_TRI_REAL' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
+    def execute(self, context):
         CriaTriCentroideDef(self, "Max-IC-real","Max-PMD-real", "Max-PME-real", "CENTR_MAX_TRI_REAL", "CentroideMaxilaReal")
 
         return {'FINISHED'}
@@ -281,15 +329,18 @@ class AdicionaMaxICreal(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Max-IC-real' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Max-IC-rea*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Max-IC-real")
         return {'FINISHED'}
     
@@ -299,15 +350,18 @@ class AdicionaMaxPMDreal(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Max-PMD-real' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Max-PMD-rea*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Max-PMD-real")
         return {'FINISHED'}
     
@@ -317,15 +371,18 @@ class AdicionaMaxPMEreal(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Max-PME-real' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Max-PME-rea*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Max-PME-real")
         return {'FINISHED'}    
 
@@ -337,8 +394,18 @@ class CriaTriCentroideManReal(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
-    def execute(self, context):
+    @classmethod
+    def poll(cls, context):
 
+        found = 'CENTR_MAND_TRI_REAL' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
+    def execute(self, context):
         CriaTriCentroideDef(self, "Man-IC-real","Man-PMD-real", "Man-PME-real", "CENTR_MAND_TRI_REAL", "CentroideMandibulaReal")
 
         return {'FINISHED'}
@@ -350,15 +417,18 @@ class AdicionaManICreal(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Man-IC-real' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Man-IC-rea*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Man-IC-real")
         return {'FINISHED'}
     
@@ -368,15 +438,18 @@ class AdicionaManPMDreal(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Man-PMD-real' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Man-PMD-rea*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Man-PMD-real")
         return {'FINISHED'}
     
@@ -386,15 +459,18 @@ class AdicionaManPMEreal(Operator, AddObjectHelper):
     bl_label = "Add Centroide"
     bl_options = {'REGISTER', 'UNDO'}
 
+    @classmethod
+    def poll(cls, context):
+
+        found = 'Man-PME-real' in bpy.data.objects
+
+        if found == False:
+            return True
+        else:
+            if found == True:
+                return False
+
     def execute(self, context):
-
-        bpy.ops.object.select_all(action='DESELECT')    
-        Pontos = [obj for obj in bpy.context.scene.objects if fnmatch.fnmatchcase(obj.name, "Man-PME-rea*")]
-        for i in Pontos:
-            i.select=True
-        
-        bpy.ops.object.delete(use_global=False)
-
         AdicionaEMPTYDef("Man-PME-real")
         return {'FINISHED'}
 
