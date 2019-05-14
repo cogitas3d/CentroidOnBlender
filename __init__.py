@@ -18,6 +18,7 @@ import tempfile
 import subprocess
 import math
 import platform
+import os
 from math import sqrt
 from mathutils import Matrix,Vector
 from bpy_extras.object_utils import AddObjectHelper, object_data_add
