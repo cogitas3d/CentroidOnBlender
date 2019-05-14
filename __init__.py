@@ -1,7 +1,7 @@
 bl_info = {
     "name": "CentroidOnBlender",
     "author": "Cicero Moraes",
-    "version": (1, 1, 11),
+    "version": (1, 1, 12),
     "blender": (2, 75, 0),
     "location": "View3D",
     "description": "Planejamento de Cirurgia Ortognática no Blender",
@@ -17,6 +17,7 @@ import csv
 import tempfile
 import subprocess
 import math
+import platform
 from math import sqrt
 from mathutils import Matrix,Vector
 from bpy_extras.object_utils import AddObjectHelper, object_data_add
@@ -26,6 +27,14 @@ from bpy.types import (Panel,
                        AddonPreferences,
                        PropertyGroup,
                        )
+
+def abrir_diretorio_relat(path):
+    if platform.system() == "Windows":
+        os.startfile(path)
+    elif platform.system() == "Darwin":
+        subprocess.Popen(["open", path])
+    else:
+        subprocess.Popen(["xdg-open", path])
 
 def CriaTriCentroideDef(self, Ponto1, Ponto2, Ponto3, NomePlano, NomeCentroide):
 
@@ -590,6 +599,7 @@ def GeraCSVDef():
         centroid_writer.writerow(['Centroide-ManDigi-ManReal', str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[0]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[0]))), str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[1]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[1]))), str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[2]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[2]))) ])
 
         subprocess.Popen("libreoffice "+tmpdir+"/centroid_file.csv", shell=True)
+        abrir_diretorio_relat(tmpdir)
 
 class GeraCSV(Operator, AddObjectHelper):
     """Create a new Mesh Object"""
