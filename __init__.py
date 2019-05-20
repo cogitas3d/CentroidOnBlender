@@ -599,6 +599,27 @@ def GeraCSVDef():
         centroid_writer.writerow(['Centroide-MaxDigi-MaxReal', str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[0]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[0]))), str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[1]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[1]))), str(abs(math.degrees(CentroideMaxilaDigi.rotation_euler[2]))-abs(math.degrees(CentroideMaxilaReal.rotation_euler[2]))) ])
         centroid_writer.writerow(['Centroide-ManDigi-ManReal', str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[0]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[0]))), str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[1]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[1]))), str(abs(math.degrees(CentroideMandibulaDigi.rotation_euler[2]))-abs(math.degrees(CentroideMandibulaReal.rotation_euler[2]))) ])
 
+        centroid_writer.writerow([''])
+        centroid_writer.writerow(['TABELA 05 - DIFERENCAS OUTROS PONTOS'])
+
+
+        DistAREALDIGIORT = DistanciaLinear("A-REAL", "A-DIGIORT")
+        DistICSREALDIGIORT = DistanciaLinear("ICS-REAL", "ICS-DIGIORT")
+        DistICIREALDIGIORT = DistanciaLinear("ICI-REAL", "ICI-DIGIORT")
+        DistBREALDIGIORT = DistanciaLinear("B-REAL", "B-DIGIORT")
+        DistPogREALDIGIORT = DistanciaLinear("Pog-REAL", "Pog-DIGIORT")
+        DistGnREALDIGIORT = DistanciaLinear("Gn-REAL", "Gn-DIGIORT")
+        DistMeREALDIGIORT = DistanciaLinear("Me-REAL", "Me-DIGIORT")
+
+        centroid_writer.writerow(["A'-REAL - A'-DIGI", str(DistAREALDIGIORT)])
+        centroid_writer.writerow(["ICS-REAL - ICS-DIGI", str(DistICSREALDIGIORT)])
+        centroid_writer.writerow(["ICI-REAL - ICI-DIGI", str(DistICIREALDIGIORT)])
+        centroid_writer.writerow(["B'-REAL - B'-DIGI", str(DistBREALDIGIORT)])
+        centroid_writer.writerow(["Pog'-REAL - Pog'-DIGI", str(DistPogREALDIGIORT)])
+        centroid_writer.writerow(["Gn'-REAL - Gn'-DIGI", str(DistGnREALDIGIORT)])
+        centroid_writer.writerow(["Me'-REAL - Me'-DIGI", str(DistMeREALDIGIORT)])
+
+
         subprocess.Popen("libreoffice "+tmpdir+"/centroid_file.csv", shell=True)
         abrir_diretorio_relat(tmpdir)
 
@@ -724,6 +745,74 @@ class BotoesManReal(bpy.types.Panel):
         row = layout.row()
         row.operator("mesh.add_tri_centroide_man_real", text="Centróide Mandíbula Real", icon="MOD_DISPLACE")
 
+class BotoesDuroReal(bpy.types.Panel):
+    """Planejamento de cirurgia ortognática no Blender"""
+    bl_label = "PONTOS - REAL"
+    bl_idname = "duro.real"
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'TOOLS'
+    bl_category = "Centroide"
+
+    def draw(self, context):
+        layout = self.layout
+
+        obj = context.object
+     
+        row = layout.row()
+        row.operator("mesh.add_a_real", text="A'-REAL", icon="OUTLINER_DATA_EMPTY")
+
+        row = layout.row()
+        row.operator("mesh.add_ics_real", text="ICS-REAL", icon="OUTLINER_DATA_EMPTY")
+
+        row = layout.row()
+        row.operator("mesh.add_ici_real", text="ICI-REAL", icon="OUTLINER_DATA_EMPTY")     
+
+        row = layout.row()
+        row.operator("mesh.add_b_real", text="B'-REAL", icon="OUTLINER_DATA_EMPTY")
+
+        row = layout.row()
+        row.operator("mesh.add_pog_real", text="Pog'-REAL", icon="OUTLINER_DATA_EMPTY") 
+
+        row = layout.row()
+        row.operator("mesh.add_gn_real", text="Gn'-REAL", icon="OUTLINER_DATA_EMPTY")
+
+        row = layout.row()
+        row.operator("mesh.add_me_real", text="Me'-REAL", icon="OUTLINER_DATA_EMPTY")
+
+class BotoesDuroDigi(bpy.types.Panel):
+    """Planejamento de cirurgia ortognática no Blender"""
+    bl_label = "PONTOS - DIGI"
+    bl_idname = "duro.digi"
+    bl_space_type = 'VIEW_3D'
+    bl_region_type = 'TOOLS'
+    bl_category = "Centroide"
+
+    def draw(self, context):
+        layout = self.layout
+
+        obj = context.object
+     
+        row = layout.row()
+        row.operator("mesh.add_a_digiort", text="A'-DIGI", icon="OUTLINER_DATA_EMPTY")
+
+        row = layout.row()
+        row.operator("mesh.add_ics_digiort", text="ICS-DIGI", icon="OUTLINER_DATA_EMPTY")
+
+        row = layout.row()
+        row.operator("mesh.add_ici_digiort", text="ICI-DIGI", icon="OUTLINER_DATA_EMPTY")     
+
+        row = layout.row()
+        row.operator("mesh.add_b_digiort", text="B'-DIGI", icon="OUTLINER_DATA_EMPTY")
+
+        row = layout.row()
+        row.operator("mesh.add_pog_digiort", text="Pog'-DIGI", icon="OUTLINER_DATA_EMPTY") 
+
+        row = layout.row()
+        row.operator("mesh.add_gn_digiort", text="Gn'-DIGI", icon="OUTLINER_DATA_EMPTY")
+
+        row = layout.row()
+        row.operator("mesh.add_me_digiort", text="Me'-DIGI", icon="OUTLINER_DATA_EMPTY") 
+
 class BotoesTabela(bpy.types.Panel):
     """Planejamento de cirurgia ortognática no Blender"""
     bl_label = "TABELA"
@@ -765,6 +854,8 @@ def register():
     bpy.utils.register_class(BotoesMaxReal)
     bpy.utils.register_class(BotoesManDigi)
     bpy.utils.register_class(BotoesManReal)
+    bpy.utils.register_class(BotoesDuroReal)
+    bpy.utils.register_class(BotoesDuroDigi)
     bpy.utils.register_class(BotoesTabela)
     
 def unregister():
@@ -789,6 +880,8 @@ def unregister():
     bpy.utils.unregister_class(BotoesMaxReal)
     bpy.utils.unregister_class(BotoesManDigi)
     bpy.utils.unregister_class(BotoesManReal)
+    bpy.utils.unregister_class(BotoesDuroReal)
+    bpy.utils.unregister_class(BotoesDuroDigi)
     bpy.utils.unregister_class(BotoesTabela)
 
 if __name__ == "__main__":
